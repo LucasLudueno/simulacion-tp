@@ -1,55 +1,38 @@
-# import statistics 
-# import seaborn as sns
-# import math
-# def gcl(X, times, numbers):
-# 	for x in range(0, times):
-# 		a = 1013904223
-# 		c = 1664525 
-# 		m = 2**32
-# 		rand = (a*X + c) % m
-# 		numbers.append(rand)
-# 		X=rand
-	
-# numbers=list()
-# gcl(int((93081+95475)/2), 6, numbers)
-# print(numbers)
+import statistics 
+import seaborn as sns
+import math
+import numpy
+import matplotlib.pyplot as plt
+from statistics import median, variance, mode, StatisticsError
+from gcl import GCL
 
-# num=list()
-# gcl(int((93081+95475)/2), 100000, num)
-# newList = [x / float(2**32) for x in num]
+CANTIDAD_MUESTRAS = 100000
 
-# sns.set_style('darkgrid')
+# Coordenadas de una distribucion normal acumulada
+X_COORD_POINTS = [0,  0.00003, 0.00135, 0.00621, 0.02275, 0.06681, 0.11507, 0.15866, 0.21186, 0.27425, 0.34458, 0.42074, 0.5, 0.57926, 0.65542, 0.72575, 0.78814, 0.84134, 0.88493, 0.93319, 0.97725, 0.99379, 0.99865, 0.99997]
+Y_COORD_POINTS = [-5, -4,      -3 ,     -2.5 ,   -2,      -1.5 ,   -1.2 ,   -1 ,     -0.8 ,   -0.6,    -0.4 ,   -0.2 ,   0 ,  0.2 ,    0.4,     0.6 ,    0.8,     1,       1.2,     1.5,     2,       2.5,     3,       4.5]
 
-# lamb = 1/float(15)
-# newInvList = [-1*math.log(1-x)/lamb for x in newList]
+# Ejecutamos el Generador Congruencial Lineal para N = 100.000
+generator = GCL(a = 1013904223, c = 1664525, m = 2**32)
+seed = int(median([93081, 95475]))
+generated_points = generator.execute(seed, times = CANTIDAD_MUESTRAS, normalized = True)
 
-# total = 0
+# Calculamos la interpolacion de los puntos que generamos segun la transformacion inversa
+result_list = numpy.interp(generated_points, X_COORD_POINTS, Y_COORD_POINTS)
 
-# list2 = []
+# Calculamos la mediana, la varianza y la moda
+media = median(result_list)
+varianza = variance(result_list)
 
-# for x in range(len(newList)):
-#     total += newList[x]
-#     list2.append(x)
+try:
+    moda = mode(result_list)
+except StatisticsError as e:
+    moda = 0
+ 
+print("la mediana es: ", media)
+print("la varianza es: ",  varianza)
+print("la moda es: ", moda)
 
-# def accumu(lis):
-#     tot = 0
-#     for x in range(len(lis)):
-#         tot += lis[x]
-#         yield tot
-       
-# acumPre = [x / float(total) for x in newList]
-# acumulada = list(accumu(acumPre))
-
-# #f = interpolate.interp1d(list2,acumulada)
-# #y=f(acumulada)
-# nuevaAc = []
-# indice = []
-
-# for x in range(0,100000,100):
-#     nuevaAc.append(acumulada[x])
-#     indice.append(x)
-    
-# print "la mediana es: ",statistics.median(acumulada)
-# print("la varianza es % s" 
-#       %(statistics.variance(acumulada))) 
-# sns.distplot(indice,nuevaAc)
+# Graficamos el histograma de la distribucion normal generada
+plt.hist(result_list, bins = 1000)
+plt.show()
