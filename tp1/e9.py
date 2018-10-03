@@ -10,19 +10,12 @@ def gaps_out_inteval(start, end, numbers_list):
  gaps_list = []
  gaps_count = 0
 
- is_out_interval = False
  for number in numbers_list:
     if number < start or number > end:
       gaps_count += 1
-      is_out_interval = True
     else:
-      if is_out_interval:
-        gaps_list.append(gaps_count)
+      gaps_list.append(gaps_count)
       gaps_count = 0
-      is_out_interval = False
-
- if is_out_interval:
-   gaps_list.append(gaps_count)
 
  return gaps_list
 
@@ -30,9 +23,6 @@ def execute_gap_test(random_list, interval_start, interval_end, signification_le
  # Utilizamos el metodo de GAP Test
  # Paso 1: Calculamos el vector de gaps que no ocurrieron en cada intervalo
  gaps_intervals = gaps_out_inteval(interval_start, interval_end, random_list)
-
- print(random_list)
- print(gaps_intervals)
 
  # Paso 2: Calculamos el numero de intervalos esperados segun su tamaño
  max_interval = max(gaps_intervals)
