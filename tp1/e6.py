@@ -17,7 +17,7 @@ def stepsForHead():
 stepsCount = list()
 for x in range(0, CANTIDAD_MUESTRAS):
     stepsCount.append(stepsForHead())
-    
+
 print ("la media es: ", statistics.mean(stepsCount))
 print ("la mediana es: ", statistics.median(stepsCount))
 print ("la varianza es: ", statistics.variance(stepsCount))
@@ -25,5 +25,5 @@ print ("la moda es: ", statistics.mode(stepsCount))
 
 plt.ylabel('Cantidad de aciertos')
 plt.xlabel('Intentos')
-plt.hist(stepsCount)
+plt.hist(stepsCount, bins = 1000)
 plt.show()
