@@ -3,7 +3,7 @@ import seaborn as sns
 import math
 import numpy
 import matplotlib.pyplot as plt
-from statistics import median, variance, mode, StatisticsError
+from statistics import mean, variance, mode, StatisticsError
 from gcl import GCL
 
 CANTIDAD_MUESTRAS = 100000
@@ -14,14 +14,14 @@ Y_COORD_POINTS = [-5, -4,      -3 ,     -2.5 ,   -2,      -1.5 ,   -1.2 ,   -1 ,
 
 # Ejecutamos el Generador Congruencial Lineal para N = 100.000
 generator = GCL(a = 1013904223, c = 1664525, m = 2**32)
-seed = int(median([93081, 95475]))
+seed = int(mean([93081, 95475]))
 generated_points = generator.execute(seed, times = CANTIDAD_MUESTRAS, normalized = True)
 
 # Calculamos la interpolacion de los puntos que generamos segun la transformacion inversa
 result_list = numpy.interp(generated_points, X_COORD_POINTS, Y_COORD_POINTS)
 
-# Calculamos la mediana, la varianza y la moda
-media = median(result_list)
+# Calculamos la media, la varianza y la moda
+media = mean(result_list)
 varianza = variance(result_list)
 
 try:
@@ -29,7 +29,7 @@ try:
 except StatisticsError as e:
     moda = 0
  
-print("la mediana es: ", media)
+print("la media es: ", media)
 print("la varianza es: ",  varianza)
 print("la moda es: ", moda)
 

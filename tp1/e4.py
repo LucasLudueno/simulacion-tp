@@ -3,7 +3,7 @@ import random
 import numpy
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
-from statistics import median, variance, mode, StatisticsError
+from statistics import mean, variance, mode, StatisticsError
 from gcl import GCL
 
 MEDIA = 35
@@ -42,8 +42,8 @@ for i in range(CANTIDAD_MUESTRAS):
 # Aplicamos la transformacion lineal para media = 35, desvio = 5
 transformation_list = [x * DESVIO + MEDIA for x in result_list]
 
-# Calculamos la mediana, la varianza y la moda
-media = median(transformation_list)
+# Calculamos la media, la varianza y la moda
+media = mean(transformation_list)
 varianza = variance(transformation_list)
 
 try:
@@ -51,7 +51,7 @@ try:
 except StatisticsError as e:
    moda = 0
 
-print("la mediana es: ", media)
+print("la media es: ", media)
 print("la varianza es: ",  varianza)
 print("la moda es: ", moda)
 
