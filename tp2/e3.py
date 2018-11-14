@@ -49,13 +49,13 @@ def simulation(ax_to_variate):
                     y_axis.append(current_y)
                     z_axis.append(current_z)
 
-                # Graficamos en 2D los resultados para X e Y
+                # Graficamos en 2D los resultados para X e Y (descomentar las lineas siguientes y comentar la graficacion 3D)
                 # plt.xlabel('Estado X. Inicial =' + str(i))
                 # plt.ylabel('Estado Y. Inicial =' + str(j))
                 # plt.plot(x_axis, y_axis)
                 # plt.show()
 
-                # Graficamos en 3D los resultados (descomentar las lineas siguientes y comentar la graficacion 2D)
+                # Graficamos en 3D los resultados
                 ax.set_xlabel('Estado X')
                 ax.set_ylabel('Estado Y')
                 ax.set_zlabel('Estado Z')

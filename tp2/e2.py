@@ -7,6 +7,7 @@ ESTADO_INICIAL = 0
 ESTADO_FINAL = 30
 CANTIDAD_MUESTRAS = 10000000
 
+# las probabilidades son son las calculadas en el enunciado
 PROB_MENOS = float(13.0/400)
 PROB_IGUAL_SIN_PROCESAR = float(377.0/400)
 PROB_IGUAL_PROCESANDO = float(1.0/1200)
