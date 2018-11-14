@@ -21,7 +21,7 @@ class Request(object):
 
     def pay(self, checkout):
         yield self.env.process(checkout.serve(self))
-        #print("%.2f Request type %s attended" % (self.env.now, self.type))
+        print("%.2f Request type %s attended" % (self.env.now, self.type))
 
     def get_pay_duration(self):
         return self.pay_duration[self.type] + numpy.random.uniform(-self.pay_variance[self.type], self.pay_variance[self.type])

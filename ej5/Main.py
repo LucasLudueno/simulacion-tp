@@ -28,6 +28,12 @@ def generate_clients(environment, interval, checkout):
         index = index + 1
 		
 env = simpy.Environment()
+if (len(sys.argv)< 2):
+    print (' Falta argumento, 1 para round_robin, 0 para menor carga' )
+    sys.exit()
+if ( sys.argv[1] != '1' and sys.argv[1]!= '0' ):
+    print (' Argumento inválido, 1 para round_robin, 0 para menor carga, ingresó: %s' % (sys.argv[1]) )
+    sys.exit()
 checkout = Checkout(env, server_count, sys.argv[1])
 env.process(generate_clients(env, arrival_rate, checkout))
 env.run(until=simulation_time)
